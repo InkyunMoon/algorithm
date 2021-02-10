@@ -43,7 +43,7 @@ def quick_sort(array, start, end):
     quick_sort(array, start, right - 1)
     quick_sort(array, right + 1, end)
 
-quick_sort(array, 0, len(array)-1)# 어디서 오류가 뜨는걸까...
+quick_sort(array, 0, len(array)-1)# 어디서 오류가 뜨는걸까...# 0210 ing
 print(array)
 
 # 6-5 간단한 퀵 정렬 코드
