@@ -63,4 +63,26 @@ def quick_sort(array):
 
 print(quick_sort(array))
 
-# 6-5
+# 6-6 계수정렬 소스코드
+# 모든 원소의 값이 0보다 크거나 같다고 가정
+array = [7,5,9,0,3,1,6,2,9,1,4,8,0,5,2]
+# 모든 범위를 포함하는 리스트 선언(모든 값은 0으로 초기화)
+count = [0] * (max(array) + 1)
+
+for i in range(len(array)):
+    count[array[i]] += 1
+
+for i in range(len(count)):
+    for j in range(count[i]):
+        print(i, end = ' ')
+
+# 6-9 정렬 라이브러리에서 key를 활용한 소스코드
+array = [('바나나',2), ('사과',5),('당근',3)]
+
+def setting(data):
+    return data[1]
+
+setting(    array)
+
+result = sorted(array, key = setting)
+print(result)
