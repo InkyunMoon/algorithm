@@ -7,11 +7,14 @@
 예)
 
 n = 5
-arr = [8, 3, 7, 9 ,2]
+parts = [8, 3, 7, 9 ,2]
 m = 3
-request = [5, 7, 9]
+requests = [5, 7, 9]
 '''
 # 손님이 요청한 부품 순서대로 부품 확인해서 있으면 yes, 없으면 no출력
+
+# 재귀함수로 풀어보기
+import sys
 
 n = int(sys.stdin.readline().rstrip())
 parts = list(map(int,input().split()))
@@ -22,17 +25,40 @@ def b_search(arr, target, start, end):
     if start > end:
         return None
     mid = (start + end) // 2
-    
-    if array[mid] == target:
+    arr.sort()
+    if arr[mid] == target:
         return mid
     
-    elif array[mid] > target:
-        return binary_search(array, target, start, mid - 1)
+    elif arr[mid] > target:
+        return b_search(arr, target, start, mid - 1)
     else:
-        return binary_search(array, target, mid + 1, end)
+        return b_search(arr, target, mid + 1, end)
 
-for request in requests:
-    if request == b_search(parts, request, 0, n-1):
-        print('yes')
+for target in requests:
+    result = b_search(parts, target, 0, n-1)
+    if result == None:
+        print('no', end = ' ')
     else:
-        print('no')
+        print('yes', end = ' ')
+
+# 반복문으로 풀어보기
+def b_search2(arr, target, start, end):
+    while start <= end:
+        mid = (start + end) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] > target:
+            end = mid - 1
+        else:
+            start = mid + 1
+    return None
+
+for target2 in requests:
+
+    result2 = b_search2(parts, target2, 0, n-1)
+    if result2 == None:
+        print('yes', end = ' ')
+    else:
+        print('no', end = ' ')
+
+        
