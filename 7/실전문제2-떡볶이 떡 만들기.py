@@ -5,21 +5,31 @@ import sys
 n, m = map(int, input().split())
 heights = list(map(int,input().split()))
 '''
-n, m = 4 6
+n, m = 4, 6
 heights = [19, 15, 10, 17]
 '''
 
 heights.sort()
 
-def binary_search(array, target, start, end):
-    while start <= end:
-        mid = (start + end) // 2
+start = 0
+end = max(heights)
 
-        if array[mid] == target:
-            return mid
-        elif array[mid] > target:
-            end = mid - 1
-        else:
-            start = mid + 1
+result = 0
 
-    return None
+while start <= end:
+    total = 0
+    mid = (start + end) // 2
+    for x in heights:
+        if x > mid:
+            total += x - mid
+    if total < m:
+        end = mid - 1
+    else:
+        result = mid
+        start = mid + 1
+
+print(result)
+
+# 시작점과 끝점 사이 중간지점을 떡을 자르는 위치로 설정
+# 잘린 떡의 총합이 목표치보다 낮다면, 끝지점을 줄여서 중간지점을 왼쪽으로(떡을 더 자르게)
+# 총합이 목표치보다 크다면, 시작지점을 mid+1로 설정해서 떡을 덜 자르게
