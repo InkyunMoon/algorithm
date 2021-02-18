@@ -32,3 +32,20 @@ attack(4, food)
 # 2칸 건너뛰는 경우 고려하지 않음
 
 # 해설 풀이
+
+n = int(input())
+# n = 4
+food = list(map(int,input()))
+# food = [1,3,1,5]
+'''
+amount_n = max(amount_n-1, amount_n-2 + x_n)
+'''
+
+d = [0] * 100 # d[n]는 n번째 식량창고까지 갔을 때 얻을 수 있는 식량의 최대 수
+d[0] = food[0]
+d[1] = max(food[0], food[1]) 
+
+for i in range(2, n):
+    d[i] = max(d[i-1], d[i-2] + food[i])
+
+print(d[n-1])
