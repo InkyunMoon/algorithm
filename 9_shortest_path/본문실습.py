@@ -67,26 +67,22 @@ for _ in range(m):
 
 def dijkstra(start):
     q = []
-    heapq.heappush(q, (0, start))
-    distance[start] = 0
-    while q:
-        dist, now = heapq.heappop(q)
-
-        if distance[now] < dist:
+    heapq.heappush(q, (0, start)) # 출발노드로 가는 거리를 0으로 설정해서 우선순위큐에 넣어준다.
+    distance[start] = 0 # 출발노드(start)로 가는 거리를 0으로 설정하고 큐에 넣도록 한다.
+    while q: # 우선순위 큐가 빌 때까지 데이터를 하나씩 꺼내서 처리하도록 한다.
+        dist, now = heapq.heappop(q) # dist가 작은 순서부터 우선하여 꺼내진다.
+        if distance[now] < dist: # 꺼내진 노드가 현재 거리보다 작으면 (처리된 것으로 간주하고)무시하도록 한다.
             continue
-
-        for i in graph[now]:
-            cost = dist + i[1]
-
-            if cost < distance[i[0]]:
-                distance[i[0]] = cost
-                heapq.heappush(q, (cost, i[0]))
+        for i in graph[now]: # 현재 꺼낸 노드에 대해서 그 노드를 거쳐가는 경우를 고려하도록 한다.
+            cost = dist + i[1] # i[1]는 현재 꺼낸 노드와 인접한 노드의 거리를 의미한다.
+            if cost < distance[i[0]]: # 현재 노드를 거쳐서 다른노드로 이동하는 거리가 짧은 경우에 다음의 코드 실행
+                distance[i[0]] = cost # 그 작은 비용으로 갱신한다.
+                heapq.heappush(q, (cost, i[0])) # 그럴 때마다 우선순위큐에 해당 정보가 기록되도록 한다.
 
 dijkstra(start)
 
 for i in range(1, n+1):
     if distance[i] == INF:
-        print('INFINITY')
-
+        print('INFINITY') # 도달할 수 없는 경우, 무한으로 출력
     else:
-        print(distance[i])
+        print(distance[i]) # 도달할 수 있는 경우, 거리를 출력
