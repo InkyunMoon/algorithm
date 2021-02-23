@@ -90,3 +90,36 @@ for i in range(1, n+1): # 모든 노드로 가기 위한 최단 거리 출력
         print('INFINITY') # 도달할 수 없는 경우, 무한으로 출력
     else:
         print(distance[i]) # 도달할 수 있는 경우, 거리를 출력
+
+
+# 플로이드 워셜 알고리즘
+
+INF = int(1e9)
+
+n = int(input())
+m = int(input())
+
+graph = [[INF] * (n + 1) for _ in range(n + 1)]
+
+for a in range(1, n+1):
+    for b in range(1, n+1):
+        if a == b:
+            graph[a][b] = 0
+
+for _ in range(m):
+    a, b, c = map(int, input().split())
+    graph[a][b] = c
+
+for k in range(1, n+1):
+    for a in range(1, n+1):
+        for b in range(1, n+1):
+            graph[a][b] = min(graph[a][b], graph[a][k] + graph[k][b])
+
+for a in range(1, n+1):
+    for b in range(1, n+1):
+
+        if graph[a][b] == INF:
+            print('infinity', end = ' ')
+        else:
+            print(graph[a][b], end = ' ')
+    print()
