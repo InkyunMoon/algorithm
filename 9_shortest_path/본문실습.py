@@ -94,32 +94,35 @@ for i in range(1, n+1): # 모든 노드로 가기 위한 최단 거리 출력
 
 # 플로이드 워셜 알고리즘
 
-INF = int(1e9)
+INF = int(1e9) # 무한을 10억으로 설정한다.
 
-n = int(input())
-m = int(input())
+n = int(input()) # 노드의 개수
+m = int(input()) # 간선의 개수를 입력받는다.
 
+# 노드가 1번부터 출발한다고 가정, n+1만큼 각각의 행과 열을 구성, 무한으로 초기화
 graph = [[INF] * (n + 1) for _ in range(n + 1)]
 
+# 자기 자신에서 자신으로 가는 비용(대각선의 값)은 모두 0으로 초기화
 for a in range(1, n+1):
     for b in range(1, n+1):
         if a == b:
             graph[a][b] = 0
 
+# a노드에서 b노드로 가는 비용이 c라고 설정하여 graph를 구성한다.
 for _ in range(m):
     a, b, c = map(int, input().split())
     graph[a][b] = c
 
-for k in range(1, n+1):
-    for a in range(1, n+1):
-        for b in range(1, n+1):
+# 3중 반복문을 통해 모든 노드에서 다른 모든 노드로까지의 최단거리를 구할 수 있다.
+for k in range(1, n+1): # k는 거쳐가는 노드
+    for a in range(1, n+1): # 출발노드
+        for b in range(1, n+1): # 도착노드
             graph[a][b] = min(graph[a][b], graph[a][k] + graph[k][b])
 
 for a in range(1, n+1):
     for b in range(1, n+1):
-
-        if graph[a][b] == INF:
+        if graph[a][b] == INF: # a에서 b로 도달할 수 없는 경우, '무한'출력
             print('infinity', end = ' ')
-        else:
+        else: # 도달할 수 있다면, 그 거리를 출력한다.
             print(graph[a][b], end = ' ')
     print()
