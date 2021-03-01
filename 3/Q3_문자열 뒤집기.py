@@ -7,37 +7,48 @@
 
 아이디어2)
 '덩어리'가 더 적은 것을 찾는다.
+------------------------------------------------
+(풀이 참고한 뒤)
+생각하지 못한 것
+- 0과 1로 바꾸는 경우 각각을 count한 뒤 작은 것을 비교할 생각을 하지 못함
+- '덩어리'를 처리하는 경우, 다음 숫자가 현재와 다른 경우에 덩어리였음을 파악하지 못함
+    - 시작, 끝의 인덱스를 각각 찾아서 처리하려하는 등 복잡하게 생각함
 '''
+# 나의 풀이(2회)
+str_ = input()
+str_ = '0011010100001'
+cnt0 = 0
+cnt1 = 0
 
-s = '0001100'
+if str_[0] == '0':
+    cnt1 += 1
+else:
+    cnt0 += 1
 
-s_lst = list(map(int,s))
+for i in range(len(str_) - 1):
+    if str_[i] != str_[i+1]:
+        if str_[i+1] == '0':
+            cnt1 += 1
+        else:
+            cnt0 += 1
 
-cnt_0 = s_lst.count(0)
-cnt_1 = s_lst.count(1)
-target = 1
+print(min(cnt0, cnt1))
 
-def find_idx(lst, target):
-    idx_lst = []
-    for idx, val in enumerate(lst):
-        if val == target:
-            idx_lst.append(idx)
-    return idx_lst
+### 풀이
 
-def flip(lst):
-    if isinstance(lst,str):
-        lst = list(map(int,lst))
+data = input()
+count0 = 0
+count1 = 0
 
-    cnt_0 = s_lst.count(0)
-    cnt_1 = s_lst.count(1)
+if data[0] == '1':
+    count0 += 1
+else:
+    count1 += 1
 
-    if cnt_0 < cnt_1: # 0의 수가 더 적으므로 0을 1로 바꿔야한다.
-        for i in find_idx(lst, 0): # 0의 인덱스 위치를 찾아서
-            lst[i] = 1 # 1로 바꾼다.
-        return lst
-    else:
-        for i in find_idx(lst, 1):
-            lst[i] = 0
-        return lst
-
-flip([1,1,1,1,1,1,1,0,1,0])
+for i in range(len(data) -1):
+    if data[i] != data[i+1]: # 이어지는 원소가 바뀌는 경우에만 처리해주도록 한다.
+        if data[i+1] == '1':
+            count0 += 1
+        else:
+            count1 += 1
+print(count0, count1)

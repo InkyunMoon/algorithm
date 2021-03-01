@@ -21,3 +21,4 @@ for num in map(int,nums):
             cnt += 1
 
 print(result)
+
