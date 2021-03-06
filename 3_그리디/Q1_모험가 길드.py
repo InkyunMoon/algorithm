@@ -11,7 +11,7 @@
 
 n = int(input())
 # fears = list(map(int,input().split()))
-fears = [2,3,1,2,2]
+fears = [1,2,2,2,3]
 
 no_adventurer = 0
 no_group = 0
@@ -20,8 +20,26 @@ fears.sort() # [1,2,2,2,3]
 
 for fear in fears:
     no_adventurer += 1
-    if no_adventurer >= fear:
+    if no_adventurer >= fear: # 현재 모험가의 수가 공포도보다 많아야 그룹이 결성된다. 공포도보다 적으면 그룹이 결성될 수 없다.
         no_group += 1
         no_adventurer = 0
 
+print(no_group)
+
+# 210306 - 3회차 풀이
+# 그룹 수의 최댓값을 구하는 프로그램을 작성
+
+n = 5
+fears = [2,3,1,2,2]
+
+fears.sort()
+
+no_group = 0
+no_member = 0
+
+for fear in fears:
+    no_member += 1
+    if fear <= no_member:
+        no_group += 1
+        no_member = 0
 print(no_group)

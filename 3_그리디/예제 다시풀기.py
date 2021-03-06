@@ -24,14 +24,14 @@ print(result)
 
 # 4번 다시풀기
 
-n , k = 24, 5
+n , k = 5, 20
 
 cnt = 0
 while True:
     if n == 1:
         break
 
-    if n % 5 != 0:
+    if n % k != 0:
         n -= 1
         cnt += 1
     else:
